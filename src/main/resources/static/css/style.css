@@ -53,7 +53,7 @@ h1 {
 /* 책마다 색상 다르게 설정 */
 .bookshelf .book:nth-child(1) { background-color: #e55039; }
 .bookshelf .book:nth-child(2) { background-color: #4a69bd; }
-.bookshelf .book:nth-child(3) { background-color: #78e08f; }
+.bookshelf .book:nth-child(3) { background-color: #76846f; }
 .bookshelf .book:nth-child(4) { background-color: #f6b93b; }
 .bookshelf .book:nth-child(5) { background-color: #60a3bc; }
 
