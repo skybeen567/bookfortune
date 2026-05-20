@@ -119,7 +119,7 @@ h1 {
 body {
     /* 웹사이트 전체 배경 */
     background-color: #57694f; /* 부드러운 초록색 */
-    background-image: url('../images/책장1.jpg'); /* 여기에 이미지를 넣으면 더 예뻐요! */
+    background-image: url('/images/background.jpg'); /* 여기에 이미지를 넣으면 더 예뻐요! */
     background-size: cover; /* 화면에 꽉 차게 */
     background-position: center;
     font-family: 'Arial', sans-serif;
