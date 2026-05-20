@@ -134,3 +134,14 @@ body {
     box-shadow: 0 4px 8px rgba(0,0,0,0.1); /* 그림자를 넣어 입체적으로! */
     text-align: center;
 }
+body {
+    /* 현재 위치: static/css/style.css
+       1. ../ 으로 한 단계 위(static 폴더)로 나갑니다.
+       2. /images/책장1.jpg 로 images 폴더 안의 파일을 찾습니다.
+    */
+    background-image: url('../images/책장1.jpg');
+
+    /* 추가 옵션: 이미지가 잘리지 않게 설정 */
+    background-size: cover;
+    background-position: center;
+}
