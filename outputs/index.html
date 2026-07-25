@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>바다곁 — 부산 해양 쓰레기 길잡이</title>
+  <style>
+    :root { --ink:#12222b; --muted:#64747b; --paper:#fbfaf7; --line:#e3e6e2; --teal:#0b6b68; --teal-dark:#07524f; --mint:#d9eee9; --coral:#ef7259; --sand:#f2eadb; --yellow:#f5c76a; }
+    * { box-sizing:border-box; }
+    body { margin:0; color:var(--ink); background:var(--paper); font-family:Inter, Pretendard, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; }
+    button, select { font:inherit; }
+    .shell { max-width:1240px; margin:0 auto; padding:24px 28px 48px; }
+    header { display:flex; align-items:center; justify-content:space-between; margin-bottom:28px; }
+    .brand { display:flex; align-items:center; gap:10px; font-weight:800; letter-spacing:-.04em; font-size:21px; }
+    .brand-mark { width:32px; height:32px; display:grid; place-items:center; border-radius:11px; background:var(--teal); color:#fff; }
+    nav { display:flex; gap:24px; color:var(--muted); font-size:14px; }
+    nav a { color:inherit; text-decoration:none; } nav a.active { color:var(--teal); font-weight:700; }
+    .hero { display:grid; grid-template-columns:1.02fr .98fr; gap:28px; align-items:stretch; margin-bottom:20px; }
+    .intro { min-height:420px; padding:38px 0 30px; display:flex; flex-direction:column; justify-content:center; }
+    .eyebrow { color:var(--coral); font-size:13px; font-weight:800; letter-spacing:.08em; margin-bottom:18px; }
+    h1 { margin:0; font-size:clamp(42px, 6vw, 74px); line-height:1.03; letter-spacing:-.075em; font-weight:800; }
+    .intro p { margin:24px 0 28px; max-width:440px; color:var(--muted); font-size:17px; line-height:1.65; letter-spacing:-.03em; }
+    .primary { border:0; border-radius:12px; background:var(--teal); color:#fff; padding:15px 19px; font-weight:800; cursor:pointer; display:inline-flex; align-items:center; gap:9px; width:max-content; box-shadow:0 8px 18px #0b6b6826; }
+    .primary:hover { background:var(--teal-dark); transform:translateY(-1px); }
+    .map-wrap { position:relative; min-height:420px; overflow:hidden; border-radius:24px; background:#d7eee8; border:1px solid #cce2dd; }
+    .map-wrap:before { content:""; position:absolute; inset:0; opacity:.7; background:linear-gradient(145deg, transparent 39%, #f4eee2 40%, #f4eee2 49%, transparent 50%), radial-gradient(ellipse at 20% 90%, #c7e5dd 0 17%, transparent 18%), radial-gradient(ellipse at 92% 15%, #bfe1da 0 20%, transparent 21%); }
+    .map-grid { position:absolute; inset:0; opacity:.4; background-image:linear-gradient(#a7d2ca 1px,transparent 1px),linear-gradient(90deg,#a7d2ca 1px,transparent 1px); background-size:52px 52px; transform:rotate(-12deg) scale(1.3); }
+    .map-label { position:absolute; color:#6c9990; font-size:12px; font-weight:700; letter-spacing:.05em; } .busan { right:31%; top:20%; color:#477e77; font-size:15px; }
+    .route { position:absolute; left:25%; top:51%; width:48%; height:30%; border:3px dashed #0b6b6888; border-left:0; border-bottom:0; border-radius:0 90px 0 0; transform:rotate(-20deg); }
+    .pin { position:absolute; width:32px; height:32px; border-radius:50% 50% 50% 0; transform:rotate(-45deg); background:#fff; border:5px solid var(--teal); box-shadow:0 4px 12px #385e5740; } .pin i { display:block; width:9px; height:9px; border-radius:50%; background:var(--teal); margin:6px; }
+    .p1 { left:27%; top:50%; } .p2 { left:59%; top:34%; border-color:var(--coral); } .p2 i { background:var(--coral); } .p3 { left:70%; top:67%; } .p4 { left:42%; top:72%; border-color:var(--yellow); } .p4 i { background:var(--yellow); }
+    .map-card { position:absolute; left:18px; bottom:18px; background:#ffffffec; border:1px solid #ffffff; border-radius:15px; padding:14px 16px; width:220px; box-shadow:0 10px 26px #3a6c6640; }
+    .map-card small { color:var(--muted); } .map-card strong { display:block; margin:4px 0 10px; font-size:15px; } .map-card span { color:var(--teal); font-size:13px; font-weight:700; }
+    .section-head { display:flex; align-items:end; justify-content:space-between; gap:20px; margin:34px 0 16px; } h2 { margin:0; font-size:24px; letter-spacing:-.06em; } .section-head p { margin:0; color:var(--muted); font-size:14px; }
+    .filters { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:14px; } .filter { border:1px solid var(--line); background:#fff; color:var(--muted); border-radius:999px; padding:8px 13px; cursor:pointer; font-size:13px; } .filter.selected { background:var(--ink); color:#fff; border-color:var(--ink); }
+    .facility-list { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; } .facility { padding:18px; border:1px solid var(--line); border-radius:16px; background:#fff; display:flex; justify-content:space-between; gap:15px; align-items:start; } .facility h3 { margin:0 0 7px; font-size:16px; letter-spacing:-.04em; } .facility p { margin:0; color:var(--muted); font-size:13px; line-height:1.6; } .distance { white-space:nowrap; color:var(--teal); font-size:13px; font-weight:800; }
+    .guide { margin-top:40px; border-top:1px solid var(--line); padding-top:32px; display:grid; grid-template-columns:.7fr 1.3fr; gap:40px; } .guide-copy p { color:var(--muted); line-height:1.65; font-size:15px; } .steps { display:flex; gap:7px; margin-top:26px; } .step { color:#99a5a8; font-size:12px; font-weight:700; } .step.on { color:var(--teal); } .step b { display:inline-grid; place-items:center; width:24px; height:24px; border-radius:50%; border:1px solid currentColor; margin-right:5px; font-size:11px; }
+    .guide-box { border-radius:22px; background:var(--sand); padding:24px; } .prompt { font-size:20px; font-weight:800; letter-spacing:-.05em; margin:0 0 18px; } .choices { display:grid; grid-template-columns:repeat(3,1fr); gap:10px; } .choice { background:#fff; border:2px solid transparent; border-radius:14px; padding:14px 10px; cursor:pointer; text-align:left; } .choice:hover { border-color:#9bcfc5; } .choice.selected { border-color:var(--teal); background:#eff9f6; } .choice .icon { display:block; font-size:25px; margin-bottom:7px; } .choice strong { font-size:14px; } .choice small { display:block; margin-top:5px; color:var(--muted); line-height:1.35; }
+    .result { margin-top:17px; padding:16px; border-radius:14px; background:var(--teal); color:#fff; display:flex; align-items:center; justify-content:space-between; gap:15px; } .result b { display:block; margin-bottom:4px; } .result span { font-size:13px; color:#d5efea; } .result button { border:0; background:#fff; color:var(--teal); border-radius:8px; padding:9px 12px; font-size:12px; font-weight:800; cursor:pointer; white-space:nowrap; }
+    footer { margin-top:40px; color:#8a989b; font-size:12px; display:flex; justify-content:space-between; border-top:1px solid var(--line); padding-top:18px; }
+    @media (max-width:800px) { .shell{padding:18px 18px 38px;} nav{display:none;} .hero,.guide{grid-template-columns:1fr;} .intro{min-height:auto;padding:26px 0 14px;} .map-wrap{min-height:360px;} .facility-list{grid-template-columns:1fr;} .guide{gap:22px;} }
+    @media (max-width:460px) { h1{font-size:44px;} .section-head{display:block;} .section-head p{margin-top:8px;} .choices{grid-template-columns:1fr;} .result{align-items:flex-start; flex-direction:column;} footer{display:block; line-height:1.7;} }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <header><div class="brand"><span class="brand-mark">≈</span> 바다곁</div><nav><a class="active" href="#nearby">주변 시설</a><a href="#guide">분리배출 가이드</a><a href="#about">바다를 지키는 습관</a></nav></header>
+    <section class="hero">
+      <div class="intro"><div class="eyebrow">BUSAN · COASTAL CARE</div><h1>바다에 남기지<br>않는 여행.</h1><p>지금 있는 곳에서 가장 가까운 쓰레기 처리 시설을 찾고, 내 손에 든 쓰레기의 올바른 다음 행방을 알아보세요.</p><button class="primary" id="locate">내 주변 시설 찾기 <span>↗</span></button></div>
+      <div class="map-wrap" aria-label="부산 해변 주변 쓰레기 처리 시설 지도"><div class="map-grid"></div><span class="map-label busan">광안리 해수욕장</span><span class="map-label" style="left:17%;top:38%">민락수변공원</span><span class="map-label" style="right:12%;bottom:18%">해운대 해수욕장</span><div class="route"></div><div class="pin p1"><i></i></div><div class="pin p2"><i></i></div><div class="pin p3"><i></i></div><div class="pin p4"><i></i></div><div class="map-card"><small>현재 위치 기준</small><strong id="locationText">광안리 해수욕장 앞</strong><span id="distanceText">가까운 시설 4곳 · 300m 이내</span></div></div>
+    </section>
+    <section id="nearby"><div class="section-head"><div><h2>가까운 처리 시설</h2><p>해변에서 발견한 쓰레기는 가까운 곳에 바로 버려주세요.</p></div></div><div class="filters"><button class="filter selected" data-filter="all">전체</button><button class="filter" data-filter="general">일반</button><button class="filter" data-filter="recycle">재활용</button><button class="filter" data-filter="food">음식물</button></div><div class="facility-list" id="facilityList"></div></section>
+    <section class="guide" id="guide"><div class="guide-copy"><div class="eyebrow">SORTING GUIDE</div><h2>무엇을 버리면<br>좋을까요?</h2><p>쓰레기의 소재와 상태를 골라주세요. 바다곁이 가장 알맞은 배출 방법과 가까운 수거함을 안내해드려요.</p><div class="steps"><span class="step on"><b>1</b>소재</span><span class="step"><b>2</b>상태</span><span class="step"><b>3</b>방법</span></div></div><div class="guide-box"><p class="prompt" id="prompt">어떤 쓰레기인가요?</p><div class="choices" id="choices"></div><div class="result" id="result" hidden></div></div></section>
+    <footer><span>© 2025 바다곁 · 부산의 해변을 위한 작은 안내</span><span>함께 깨끗한 바다를 만들어요 ♡</span></footer>
+  </main>
+  <script>
+    const facilities = [
+      {name:'광안리 민락해변 수거함', meta:'재활용 · 일반 · 페트병', distance:'120m', types:['general','recycle']},
+      {name:'광안리 해수욕장 관광안내소', meta:'일반 · 음식물 · 기저귀', distance:'240m', types:['general','food']},
+      {name:'민락수변공원 분리수거장', meta:'재활용 · 캔 · 유리', distance:'410m', types:['recycle']}
+    ];
+    const renderFacilities = (filter='all') => { document.querySelector('#facilityList').innerHTML = facilities.filter(f=>filter==='all'||f.types.includes(filter)).map(f=>`<article class="facility"><div><h3>${f.name}</h3><p>${f.meta}</p></div><span class="distance">${f.distance} ↗</span></article>`).join(''); };
+    renderFacilities();
+    document.querySelectorAll('.filter').forEach(btn=>btn.addEventListener('click',()=>{ document.querySelectorAll('.filter').forEach(b=>b.classList.remove('selected')); btn.classList.add('selected'); renderFacilities(btn.dataset.filter); }));
+    document.querySelector('#locate').addEventListener('click',()=>{ document.querySelector('#locationText').textContent='현재 위치를 찾았어요'; document.querySelector('#distanceText').textContent='가까운 시설 4곳 · 300m 이내'; document.querySelector('#locate').innerHTML='위치 확인 완료 <span>✓</span>'; });
+    const guide = { material:[['🥤','플라스틱','페트병·용기'],['🥫','금속','캔·알루미늄'],['🍌','기타','종이·음식물']], state:[['✨','깨끗해요','내용물을 비웠어요'],['🍜','오염됐어요','음식물이 묻었어요']] };
+    let stage='material', selected=''; const choices=document.querySelector('#choices');
+    const draw=()=>{ choices.innerHTML=guide[stage].map(([icon,title,desc],i)=>`<button class="choice" data-value="${title}"><span class="icon">${icon}</span><strong>${title}</strong><small>${desc}</small></button>`).join(''); choices.querySelectorAll('.choice').forEach(b=>b.addEventListener('click',()=>{ choices.querySelectorAll('.choice').forEach(x=>x.classList.remove('selected')); b.classList.add('selected'); selected=b.dataset.value; if(stage==='material'){ stage='state'; document.querySelector('#prompt').textContent='내용물이 묻어 있나요?'; document.querySelector('.step:nth-child(1)').classList.remove('on'); document.querySelector('.step:nth-child(2)').classList.add('on'); draw(); } else { document.querySelector('#prompt').textContent='추천 배출 방법'; document.querySelector('.steps .step:nth-child(2)').classList.remove('on'); document.querySelector('.steps .step:nth-child(3)').classList.add('on'); document.querySelector('#choices').hidden=true; const isDirty=selected==='오염됐어요'; document.querySelector('#result').hidden=false; document.querySelector('#result').innerHTML=`<div><b>${isDirty?'일반쓰레기':'재활용 수거함'}에 넣어주세요</b><span>${isDirty?'내용물이 묻은 쓰레기는 종량제 봉투로 배출해요.':'가볍게 헹군 뒤 가까운 재활용 수거함으로!'}</span></div><button id="again">다시 선택</button>`; document.querySelector('#again').onclick=()=>{stage='material';selected='';document.querySelector('#result').hidden=true;document.querySelector('#choices').hidden=false;document.querySelector('#prompt').textContent='어떤 쓰레기인가요?';document.querySelectorAll('.step').forEach((s,i)=>s.classList.toggle('on',i===0));draw();}; }})); };
+    draw();
+  </script>
+</body>
+</html>
