@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="">
+<head>
+    <meta charset="UTF-8">
+    <title>오늘의 책은?</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <div class="container">
+        <h1>📚 오늘의 당신의 책은 🔮</h1>
+        <p class="subtitle">마음속으로 고민을 떠올리며 책 한 권을 골라보세요.</p>
+        
+        <div class="bookshelf">
+            <!-- 1번부터 5번 책 -->
+            <div class="book" onclick="drawBook(1)"><span>1</span></div>
+            <div class="book" onclick="drawBook(2)"><span>2</span></div>
+            <div class="book" onclick="drawBook(3)"><span>3</span></div>
+            <div class="book" onclick="drawBook(4)"><span>4</span></div>
+            <div class="book" onclick="drawBook(5)"><span>5</span></div>
+        </div>
+
+        <!-- 결과를 보여줄 모달 창 -->
+        <div id="resultModal" class="modal">
+            <div class="modal-content">
+                <span class="close-btn" onclick="closeModal()">&times;</span>
+                <h2>🔮 당신을 위한 문장</h2>
+                <div id="loading" class="loading">책장을 넘기는 중...</div>
+                <div id="bookResult" style="display:none;">
+                    <h3 id="bookTitle">책 제목</h3>
+                    <p id="bookAuthor" class="author">저자</p>
+                    <hr>
+                    <p id="fortuneText" class="fortune-text">"이 책의 한 구절이 당신의 고민을 해결해 줄 지도 모릅니다."</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script th:src="@{/js/script.js}"></script>
+</body>
+</html>
